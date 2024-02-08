@@ -6,7 +6,9 @@ import {
   getBankAccount,
 } from '.';
 
-import lodash from 'lodash';
+import { random } from 'lodash';
+
+jest.mock('lodash');
 
 describe('BankAccount', () => {
   let bankAccount: BankAccount;
@@ -31,6 +33,10 @@ describe('BankAccount', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  afterAll(() => {
+    jest.unmock('lodash');
   });
 
   test('should create account with initial balance', () => {
@@ -108,7 +114,7 @@ describe('BankAccount', () => {
   test('fetchBalance should return number in case if request did not failed', async () => {
     const notFailCondition = 1;
 
-    const lodashRandomSpy = jest.spyOn(lodash, 'random');
+    const lodashRandomSpy = random as jest.Mock;
 
     lodashRandomSpy.mockReturnValueOnce(FETCH_BALANCE);
     lodashRandomSpy.mockReturnValueOnce(notFailCondition);

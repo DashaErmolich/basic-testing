@@ -20,6 +20,9 @@ describe('doStuffByTimeout', () => {
 
   afterAll(() => {
     jest.useRealTimers();
+    jest.unmock('fs');
+    jest.unmock('fs/promises');
+    jest.unmock('path');
   });
 
   beforeEach(() => {
